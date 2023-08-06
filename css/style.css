@@ -22,3 +22,14 @@ body {
   text-rendering: optimizeSpeed;
   font-family: var(--system-ui);
 }
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 500px;
+  height: 500px;
+}
+
+.cell {
+  border: 1px solid #D4CED1;
+}
