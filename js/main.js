@@ -6,8 +6,14 @@ const player = (name, marker) => {
 
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
+
+  const addMarker = (index, marker) => {
+    if (board[index] === "") return board[index] = marker;
+  }
+
   const getBoard = () => board;
-  return { getBoard };
+
+  return { addMarker, getBoard };
 })();
 
 const gameController = (() => {
