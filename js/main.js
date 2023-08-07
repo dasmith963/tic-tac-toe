@@ -19,10 +19,16 @@ const gameBoard = (() => {
 const gameController = (() => {
   const playerOne = player("Player One", "X");
   const playerTwo = player("Player Two", "O");
-  const activePlayer = playerOne;
+  let activePlayer = playerOne;
+
+  const switchActivePlayer = () => {
+    activePlayer = 
+      activePlayer === playerOne ? playerTwo : playerOne;
+  }
 
   const playRound = (index) => {
     gameBoard.addMarker(index, activePlayer.getMarker());
+    switchActivePlayer();
   }
 
   return { playRound };
@@ -38,6 +44,7 @@ const displayController = (() => {
   }
 
   const renderMarker = (e) => {
+    if (e.target.textContent !== "") return;
     const index = e.target.dataset.id;
     gameController.playRound(index);
     updateDisplay();
