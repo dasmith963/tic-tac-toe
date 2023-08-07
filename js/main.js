@@ -19,6 +19,7 @@ const gameBoard = (() => {
 const gameController = (() => {
   const playerOne = player("Player One", "X");
   const playerTwo = player("Player Two", "O");
+  const board = gameBoard.getBoard();
   let activePlayer = playerOne;
   let isGameOver = false;
   let result = "";
@@ -35,8 +36,6 @@ const gameController = (() => {
   }
 
   const getWinner = () => {
-    const board = gameBoard.getBoard();
-    const boardFull = board.every(index => index !== "");
     const winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -55,7 +54,6 @@ const gameController = (() => {
       let c = board[winCondition[2]];
 
       if (a === "" || b === "" || c === "") continue;
-      if (boardFull) return isGameOver = true;
       if (a === b && b === c) {
         isGameOver = true;
         return a;
@@ -64,6 +62,7 @@ const gameController = (() => {
   }
 
   const checkGameOver = () => {
+    const boardFull = board.every(index => index !== "");
     let winner = getWinner();
 
     if (isGameOver && winner === "X") {
@@ -72,7 +71,7 @@ const gameController = (() => {
     else if (isGameOver && winner === "O") {
       return result = playerTwo.getName() + " wins!";
     }
-    else if (isGameOver) {
+    else if (boardFull) {
       return result = "It's a Draw!";
     }
   }
