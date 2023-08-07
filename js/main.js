@@ -21,6 +21,7 @@ const gameController = (() => {
   const playerTwo = player("Player Two", "O");
   let activePlayer = playerOne;
   let isGameOver = false;
+  let result = "";
 
   const switchActivePlayer = () => {
     activePlayer =
@@ -66,26 +67,43 @@ const gameController = (() => {
     let winner = getWinner();
 
     if (isGameOver && winner === "X") {
-      console.log(playerOne.getName() + " Wins");
+      return result = playerOne.getName() + " wins!";
     }
     else if (isGameOver && winner === "O") {
-      console.log(playerTwo.getName() + " Wins");
+      return result = playerTwo.getName() + " wins!";
     }
     else if (isGameOver) {
-      console.log("It's a tie!!");
+      return result = "It's a Draw!";
     }
   }
 
-  return { playRound };
+  const getActivePlayer = () => activePlayer;
+
+  const getResult = () => result;
+
+  return { playRound, getActivePlayer, getResult };
 })();
 
 const displayController = (() => {
   const boardEl = document.querySelector(".board");
   const cells = document.querySelectorAll(".cell");
+  const gameStatus = document.querySelector(".game-status");
 
   const updateDisplay = () => {
     const board = gameBoard.getBoard();
     cells.forEach((cell, index) => cell.textContent = board[index]);
+    updateGameStatus();
+  }
+
+  const updateGameStatus = () => {
+    const result = gameController.getResult();
+    const activePlayer = gameController.getActivePlayer();
+
+    if (result !== "") {
+      gameStatus.textContent = result;
+    } else {
+      gameStatus.textContent = `It's ${activePlayer.getName()}'s turn`;
+    }
   }
 
   const renderMarker = (e) => {
