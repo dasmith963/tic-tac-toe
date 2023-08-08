@@ -11,9 +11,15 @@ const gameBoard = (() => {
     if (board[index] === "") return board[index] = marker;
   }
 
+  const clear = () => {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = "";
+    }
+  }
+
   const getBoard = () => board;
 
-  return { addMarker, getBoard };
+  return { addMarker, clear, getBoard };
 })();
 
 const gameController = (() => {
@@ -23,6 +29,7 @@ const gameController = (() => {
   let activePlayer = playerOne;
   let isGameOver = false;
   let result = "";
+  let winner = "";
 
   const switchActivePlayer = () => {
     activePlayer =
@@ -63,7 +70,7 @@ const gameController = (() => {
 
   const checkGameOver = () => {
     const boardFull = board.every(index => index !== "");
-    let winner = getWinner();
+    winner = getWinner();
 
     if (isGameOver && winner === "X") {
       return result = playerOne.getName() + " wins!";
@@ -76,17 +83,25 @@ const gameController = (() => {
     }
   }
 
+  const reset = () => {
+    activePlayer = playerOne;
+    isGameOver = false;
+    result = "";
+    winner = "";
+  }
+
   const getActivePlayer = () => activePlayer;
 
   const getResult = () => result;
 
-  return { playRound, getActivePlayer, getResult };
+  return { playRound, reset, getActivePlayer, getResult };
 })();
 
 const displayController = (() => {
   const boardEl = document.querySelector(".board");
   const cells = document.querySelectorAll(".cell");
   const gameStatus = document.querySelector(".game-status");
+  const resetBtn = document.querySelector(".reset-btn");
 
   const updateDisplay = () => {
     const board = gameBoard.getBoard();
@@ -112,7 +127,14 @@ const displayController = (() => {
     updateDisplay();
   }
 
+  const startNewGame = () => {
+    gameBoard.clear();
+    gameController.reset();
+    updateDisplay();
+  }
+
   boardEl.addEventListener("click", renderMarker);
+  resetBtn.addEventListener("click", startNewGame);
 
   updateDisplay();
 })();
