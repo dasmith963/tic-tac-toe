@@ -1,8 +1,10 @@
 :root {
-  --bg-color: #f5f3f4;;
+  --bg-color: #f5f3f4;
   --text-color: #242624;
-  --board-bg-color: #ffffff;
   --boarder-color: #555555;
+  --btn-bg-color: #0a0a23;
+  --btn-hover-color: #4f545c;
+  --white: #ffffff;
   --system-ui: -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans",
@@ -27,12 +29,26 @@ body {
   font-family: var(--system-ui);
   background: var(--bg-color);
   color: var(--text-color);
+  text-align: center; 
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+}
+
+button,
+.cell {
+  cursor: pointer;
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 4.5rem;
   font-weight: 700;
   padding: 16px;
+}
+
+.game-status {
+  font-size: 2rem;
+  padding-bottom: 20px;
 }
 
 .board {
@@ -40,14 +56,35 @@ h1 {
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   width: 500px;
   height: 500px;
+  margin: 0 auto;
+  padding-bottom: 32px;
 }
 
 .cell {
-  background: var(--board-bg-color);
+  background: var(--white);
   border: 1px solid var(--boarder-color);
   font-size: 4rem;
   font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+button {
+  background: var(--btn-bg-color);
+  color: var(--white);
+  padding: 12px 20px;
+  font-weight: 600;
+  border: 0;
+  outline: 0;
+  border-radius: 10px;
+  transition: .5s;
+}
+
+button:hover {
+  background: var(--btn-hover-color);
+}
+
+button:active {
+  background: inherit;
 }
