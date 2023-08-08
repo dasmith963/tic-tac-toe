@@ -29,7 +29,7 @@ body {
   font-family: var(--system-ui);
   background: var(--bg-color);
   color: var(--text-color);
-  text-align: center; 
+  text-align: center;
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 20px;
@@ -87,4 +87,6 @@ button:hover {
 
 button:active {
   background: inherit;
+  outline: transparent;
+  outline: 3px solid var(--btn-bg-color);
 }
