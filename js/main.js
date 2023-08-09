@@ -113,7 +113,7 @@ const displayController = (() => {
     const result = gameController.getResult();
     const activePlayer = gameController.getActivePlayer();
 
-    if (result !== "") {
+    if (result) {
       gameStatus.textContent = result;
     } else {
       gameStatus.textContent = `It's ${activePlayer.getName()}'s turn`;
@@ -121,8 +121,10 @@ const displayController = (() => {
   }
 
   const renderMarker = (e) => {
-    if (e.target.textContent !== "") return;
+    const result = gameController.getResult();
     const index = e.target.dataset.id;
+
+    if (e.target.textContent !== "" || result) return;
     gameController.playRound(index);
     updateDisplay();
   }
